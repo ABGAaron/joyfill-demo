@@ -718,8 +718,8 @@ export const data = {
   },
   templateTwo: {
     _id: '65f99fa2930179130fee34be',
-    type: 'template',
-    stage: 'published',
+    type: 'document',
+    stage: 'draft',
     metadata: {},
     identifier: 'template_65f99fa2930179130fee34be',
     name: 'Intake Form',
@@ -1401,7 +1401,7 @@ export const data = {
       {
         type: 'text',
         _id: '65f9a357f4824cb48d29bb16',
-        identifier: 'field_65f9a35dc0b9f5a8527b3012',
+        identifier: 'fullName',
         title: 'Name',
         description: '',
         required: false,
@@ -6713,5 +6713,243 @@ export const data = {
     ],
     deleted: false,
     categories: []
+  },
+  templateOldFive: {
+    _id: 'packing_instructions_template',
+    type: 'template',
+    stage: 'draft',
+    metadata: {},
+    identifier: 'template_65d0e0baf33a76f29da97b71',
+    name: 'Packing Instructions',
+    fields: [
+      {
+        _id: 'f1',
+        type: 'text',
+        title: 'Exporter',
+        identifier: 'exporter',
+        required: true
+      },
+      {
+        _id: 'f2',
+        type: 'text',
+        title: 'Booking Reference',
+        identifier: 'bookingRef',
+        required: true
+      },
+      {
+        _id: 'f3',
+        type: 'text',
+        title: 'Vessel',
+        identifier: 'vessel'
+      },
+      {
+        _id: 'f4',
+        type: 'text',
+        title: 'Voyage',
+        identifier: 'voyage'
+      },
+      {
+        _id: 'f5',
+        type: 'text',
+        title: 'Port of Loading',
+        identifier: 'portOfLoading'
+      },
+      {
+        _id: 'f6',
+        type: 'text',
+        title: 'Final Destination',
+        identifier: 'finalDestination'
+      }
+    ]
+  },
+  templateFive: {
+    id: 'packing-instructions-template',
+    name: 'Packing Instructions',
+    pages: [
+      {
+        id: 'page-1',
+        title: 'Packing Instructions',
+        elements: [
+          {
+            type: 'text',
+            key: 'receival_end',
+            label: 'Receival End'
+          },
+          {
+            type: 'date',
+            key: 'receival_end_date',
+            label: 'Receival End Date'
+          },
+          {
+            type: 'text',
+            key: 'shipping_line',
+            label: 'Name of Shipping Line'
+          },
+          {
+            type: 'text',
+            key: 'booking_reference',
+            label: 'Booking Reference'
+          },
+          {
+            type: 'text',
+            key: 'country_origin',
+            label: 'Country of Origin'
+          },
+          {
+            type: 'text',
+            key: 'country_destination',
+            label: 'Country of Destination'
+          },
+          {
+            type: 'text',
+            key: 'rfp_number',
+            label: 'RFP Number'
+          },
+          {
+            type: 'text',
+            key: 'export_declaration_number',
+            label: 'Export Declaration Number'
+          },
+          {
+            type: 'text',
+            key: 'exporter_reference',
+            label: 'Exporter Reference'
+          },
+          {
+            type: 'text',
+            key: 'buyer_reference',
+            label: 'Buyer Reference'
+          },
+          {
+            type: 'number',
+            key: 'bags_per_container',
+            label: 'Bags per Container'
+          },
+          {
+            type: 'textarea',
+            key: 'marks_numbers',
+            label: 'Marks & Numbers'
+          },
+          {
+            type: 'section',
+            label: 'Buyer / Customer'
+          },
+          {
+            type: 'text',
+            key: 'buyer_name',
+            label: 'Buyer Name'
+          },
+          {
+            type: 'text',
+            key: 'buyer_phone',
+            label: 'Buyer Phone'
+          },
+          {
+            type: 'textarea',
+            key: 'buyer_address',
+            label: 'Buyer Address'
+          },
+          {
+            type: 'section',
+            label: 'Exporter'
+          },
+          {
+            type: 'text',
+            key: 'exporter_name',
+            label: 'Exporter Name'
+          },
+          {
+            type: 'text',
+            key: 'exporter_abn',
+            label: 'Exporter ABN'
+          },
+          {
+            type: 'textarea',
+            key: 'exporter_address',
+            label: 'Exporter Address'
+          },
+          {
+            type: 'number',
+            key: 'desiccants_per_container',
+            label: 'No. of Desiccants per Container'
+          },
+          {
+            type: 'text',
+            key: 'vessel',
+            label: 'Vessel'
+          },
+          {
+            type: 'text',
+            key: 'voyage',
+            label: 'Voyage'
+          },
+          {
+            type: 'text',
+            key: 'product_code',
+            label: 'Product Code'
+          },
+          {
+            type: 'text',
+            key: 'product_name',
+            label: 'Product Name'
+          },
+          {
+            type: 'text',
+            key: 'bag_type',
+            label: 'Bag Type'
+          },
+          {
+            type: 'number',
+            key: 'bag_size',
+            label: 'Bag Size (KG)'
+          },
+          {
+            type: 'number',
+            key: 'number_of_bags',
+            label: 'Number of Bags'
+          },
+          {
+            type: 'text',
+            key: 'final_destination',
+            label: 'Final Destination'
+          },
+          {
+            type: 'text',
+            key: 'port_loading',
+            label: 'Port of Loading'
+          },
+          {
+            type: 'date',
+            key: 'departure_date',
+            label: 'Departure Date'
+          },
+          {
+            type: 'text',
+            key: 'port_discharge',
+            label: 'Port of Discharge'
+          },
+          {
+            type: 'text',
+            key: 'container_details',
+            label: 'Container Details'
+          },
+          {
+            type: 'date',
+            key: 'scheduled_pack_date',
+            label: 'Scheduled Pack Date'
+          },
+          {
+            type: 'date',
+            key: 'car_expiry_date',
+            label: 'CAR Expiry Date'
+          },
+          {
+            type: 'text',
+            key: 'authorised_by',
+            label: 'Authorised By'
+          }
+        ]
+      }
+    ]
   }
 };

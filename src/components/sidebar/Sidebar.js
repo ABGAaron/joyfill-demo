@@ -19,7 +19,7 @@ const Sidebar = () => {
   const { theme, setName, setDoc } = useContext(ThemeContext);
 
   // State for the currently active tab
-  const [activetab, setActiveTab] = useState('templateOne');
+  const [activetab, setActiveTab] = useState('templateFive');
 
   // Function to handle selection of a document template
   const handleActiveDoc = (active, name) => {
@@ -44,8 +44,8 @@ const Sidebar = () => {
 
         {/* Individual sidebar items for each template */}
         <SidebarListItem
-          className={activetab === 'templateOne' ? 'active-l' : ''}
-          onClick={() => handleActiveDoc('templateOne', 'Cleaning Checklist')}
+          className={activetab === 'templateFive' ? 'active-l' : ''}
+          onClick={() => handleActiveDoc('templateFive', 'Invoice Template')}
           theme={theme}
         >
           {/* Icon container for the template */}
@@ -53,7 +53,7 @@ const Sidebar = () => {
             <FaIcons.FaFile size={17} />
           </div>
           {/* Template name */}
-          <span>Cleaning Checklist</span>
+          <span>Invoice Template</span>
         </SidebarListItem>
 
         <SidebarListItem
