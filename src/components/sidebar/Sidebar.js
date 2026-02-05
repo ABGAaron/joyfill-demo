@@ -1,7 +1,8 @@
-import React, { useState, useContext } from 'react';
-import * as FaIcons from 'react-icons/fa';
-import * as FaIcons6 from 'react-icons/fa6';
-import { ThemeContext } from '../../App';
+import React, { useContext } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import * as FaIcons from "react-icons/fa";
+import * as MdIcons from "react-icons/md";
+import { ThemeContext } from "../../App";
 
 // Import styled components for Sidebar styling
 import {
@@ -11,21 +12,24 @@ import {
   SidebarIcon,
   SubHeader,
   SidebarListContainer,
-  SidebarListItem
-} from './styles/StyledSidebar';
+  SidebarListItem,
+} from "./styles/StyledSidebar";
 
 const Sidebar = () => {
-  // Retrieve theme and context from ThemeContext
-  const { theme, setName, setDoc } = useContext(ThemeContext);
+  // Retrieve theme from ThemeContext
+  const { theme } = useContext(ThemeContext);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  // State for the currently active tab
-  const [activetab, setActiveTab] = useState('templateFive');
-
-  // Function to handle selection of a document template
-  const handleActiveDoc = (active, name) => {
-    setDoc(active);
-    setActiveTab(active);
-    setName(name);
+  // Check if a route is active
+  const isActive = (path) => {
+    if (path === "/builder") {
+      return location.pathname === "/builder";
+    }
+    if (path === "/orders") {
+      return location.pathname.startsWith("/orders");
+    }
+    return false;
   };
 
   return (
@@ -37,60 +41,33 @@ const Sidebar = () => {
         <ProductName theme={theme}>Acme Inc.</ProductName>
       </SidebarHeader>
 
-      {/* Container for the list of templates */}
+      {/* Container for the navigation menu */}
       <SidebarListContainer>
-        {/* Subheader for the list of templates */}
-        <SubHeader theme={theme}>Templates</SubHeader>
+        {/* Subheader for the menu */}
+        <SubHeader theme={theme}>Menu</SubHeader>
 
-        {/* Individual sidebar items for each template */}
+        {/* Orders menu item */}
         <SidebarListItem
-          className={activetab === 'templateFive' ? 'active-l' : ''}
-          onClick={() => handleActiveDoc('templateFive', 'Invoice Template')}
+          className={isActive("/orders") ? "active-l" : ""}
+          onClick={() => navigate("/orders")}
           theme={theme}
         >
-          {/* Icon container for the template */}
           <div className="icon-container">
-            <FaIcons.FaFile size={17} />
+            <MdIcons.MdListAlt size={17} />
           </div>
-          {/* Template name */}
-          <span>Invoice Template</span>
+          <span>Orders</span>
         </SidebarListItem>
 
+        {/* PDF Builder menu item */}
         <SidebarListItem
-          className={activetab === 'templateTwo' ? 'active-l' : ''}
-          onClick={() => handleActiveDoc('templateTwo', 'Intake Form')}
+          className={isActive("/builder") ? "active-l" : ""}
+          onClick={() => navigate("/builder")}
           theme={theme}
         >
           <div className="icon-container">
-            <FaIcons.FaFile size={17} />
+            <FaIcons.FaFilePdf size={17} />
           </div>
-          <span>Intake Form</span>
-        </SidebarListItem>
-
-        <SidebarListItem
-          className={activetab === 'templateThree' ? 'active-l' : ''}
-          onClick={() =>
-            handleActiveDoc('templateThree', 'Fire Pump Inspection')
-          }
-          theme={theme}
-        >
-          <div className="icon-container">
-            <FaIcons.FaFile size={17} />
-          </div>
-          <span>Fire Pump Inspection</span>
-        </SidebarListItem>
-
-        <SidebarListItem
-          className={activetab === 'templateFour' ? 'active-l' : ''}
-          onClick={() =>
-            handleActiveDoc('templateFour', 'Workers Compensation')
-          }
-          theme={theme}
-        >
-          <div className="icon-container">
-            <FaIcons6.FaFilePdf size={17} />
-          </div>
-          <span>Workers Compensation</span>
+          <span>PDF Builder</span>
         </SidebarListItem>
       </SidebarListContainer>
     </SidebarContainer>

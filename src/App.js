@@ -1,54 +1,58 @@
-import React, { useState, createContext, useEffect } from 'react';
-import Sidebar from './components/sidebar/Sidebar';
-import Header from './components/header/Header';
-import { JoyDoc } from '@joyfill/components';
-import { data } from './data';
-import { initialData } from './initial-data';
-import { themes } from './themes';
-import styled from 'styled-components';
+import React, { useState, createContext, useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+import Sidebar from "./components/sidebar/Sidebar";
+import Header from "./components/header/Header";
+import Builder from "./components/builder/Builder";
+import OrdersList from "./components/orders/OrdersList";
+import OrderDetail from "./components/orders/OrderDetail";
+import styled from "styled-components";
 
 // Create a context to manage theme and mode state
-export const ThemeContext = createContext('null');
+export const ThemeContext = createContext("null");
 
 // Styled component for the main app container
 const AppContainer = styled.div`
   font-family: "Roboto Condensed", sans-serif;
-  padding-left: 215px;
-`;
-// Styled component for the JoyDoc container
-const JoyDocContainer = styled.div`
-  margin: 20px;
+  padding-left: 145px;
 `;
 
-const ExportButton = styled.button`
-  margin: 20px;
-  padding: 10px 16px;
-  font-size: 14px;
-  cursor: pointer;
+// Styled component for the content area
+const ContentArea = styled.div`
+  min-height: calc(100vh - 60px);
 `;
 
-const injectValues = (doc, values) => {
-  return {
-    ...doc,
-    fields: doc.fields.map(field => {
-      if (values[field.identifier] !== undefined) {
-        return {
-          ...field,
-          value: values[field.identifier]
-        };
-      }
-      return field;
-    })
-  };
-};
+// Styled component for the welcome message on home page
+const WelcomeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  padding: 20px;
+`;
+
+const WelcomeTitle = styled.h1`
+  font-size: 28px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: ${(props) => (props.theme === "dark" ? "#ffffff" : "#212121")};
+`;
+
+const WelcomeSubtitle = styled.p`
+  font-size: 16px;
+  color: ${(props) => (props.theme === "dark" ? "#a0a1a4" : "#666666")};
+`;
 
 const App = () => {
-  // State hooks for theme, mode, name, and selected document
-  const [theme, setTheme] = useState('light');
-  const [mode, setMode] = useState('edit');
-  const [name, setName] = useState('Intake Form');
-  const [doc, setDoc] = useState('templateTwo');
-  const [joyDoc, setJoyDoc] = useState(data[doc]);
+  // State hooks for theme and mode
+  const [theme, setTheme] = useState("light");
+  const [mode, setMode] = useState("edit");
+  const location = useLocation();
+
+  // Check if current page is orders page
+  const isOrdersPage =
+    location.pathname === "/" || location.pathname.startsWith("/orders");
 
   // Event handler to toggle mode
   const toggleMode = (mode) => {
@@ -64,58 +68,30 @@ const App = () => {
   useEffect(() => {
     let backgroundColor;
     switch (theme) {
-      case 'light':
-      case 'brand': // Set brand theme background color to be the same as light theme
-        backgroundColor = '#e8e8e8';
+      case "light":
+      case "brand":
+        backgroundColor = "#e8e8e8";
         break;
       default:
-        backgroundColor = '#343435'; // Set dark theme background color
+        backgroundColor = "#343435";
         break;
     }
     document.documentElement.style.backgroundColor = backgroundColor;
   }, [theme]);
 
-  const handleChanged = (changeLog, updatedDoc) => {
-    setJoyDoc({ ...updatedDoc });
-  };
-
-  const exportPDF = async () => {
-    try {
-      const res = await fetch('http://localhost:3005/export/pdf', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          document: joyDoc
-        })
-      });
-
-      const blob = await res.blob();
-      const url = window.URL.createObjectURL(blob);
-
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'joyfill-document.pdf';
-      a.click();
-
-      window.URL.revokeObjectURL(url);
-    } catch (err) {
-      console.log('@err', { err });
-    }
-  };
-
   return (
-    <ThemeContext.Provider
-      value={{ name, setName, mode, toggleMode, doc, setDoc, theme, toggleTheme }}
-    >
+    <ThemeContext.Provider value={{ theme, toggleTheme, mode, toggleMode }}>
       <AppContainer className="app">
-        <Header />
+        {!isOrdersPage && <Header />}
         <Sidebar />
-        <ExportButton onClick={exportPDF}>
-          Export PDF
-        </ExportButton>
-        <JoyDocContainer>
-          <JoyDoc mode={mode} theme={themes[theme]} doc={injectValues(joyDoc, initialData[doc])} onChange={handleChanged}/>
-        </JoyDocContainer>
+        <ContentArea>
+          <Routes>
+            <Route path="/" element={<OrdersList />} />
+            <Route path="/builder" element={<Builder />} />
+            <Route path="/orders" element={<OrdersList />} />
+            <Route path="/orders/:orderNumber" element={<OrderDetail />} />
+          </Routes>
+        </ContentArea>
       </AppContainer>
     </ThemeContext.Provider>
   );

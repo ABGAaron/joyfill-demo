@@ -12,9 +12,11 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "html-entities": "^2.5.2",
+    "html2pdf.js": "^0.14.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
+    "react-router-dom": "^7.13.0",
     "react-scripts": "5.0.1",
     "styled-components": "^6.1.8",
     "web-vitals": "^2.1.4"
@@ -31,7 +33,14 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "semi": "off",
+      "quotes": "off",
+      "comma-dangle": "off",
+      "object-shorthand": "off",
+      "multiline-ternary": "off"
+    }
   },
   "browserslist": {
     "production": [

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import * as PiIcons from 'react-icons/pi';
+import styled from "styled-components";
+import * as PiIcons from "react-icons/pi";
 
 /* Sidebar Container */
 export const SidebarContainer = styled.aside`
@@ -11,24 +11,25 @@ export const SidebarContainer = styled.aside`
   height: 100vh;
   padding: 15px;
   box-sizing: border-box;
-  border-right: 2px solid ${(props) => {
-    switch (props.theme) {
-      case 'dark':
-        return '#4a4a4b'; // Dark theme border color
-      case 'brand':
-        return '#fb8d21'; // Brand theme border color
-      default:
-        return '#e2e2e2'; // Light theme border color
-    }
-  }};
+  border-right: 2px solid
+    ${(props) => {
+      switch (props.theme) {
+        case "dark":
+          return "#4a4a4b"; // Dark theme border color
+        case "brand":
+          return "#fb8d21"; // Brand theme border color
+        default:
+          return "#e2e2e2"; // Light theme border color
+      }
+    }};
   background-color: ${(props) => {
     switch (props.theme) {
-      case 'dark':
-        return '#1E1E1F'; // Dark theme background color
-      case 'brand':
-        return '#e57b0f'; // Brand theme background color
+      case "dark":
+        return "#1E1E1F"; // Dark theme background color
+      case "brand":
+        return "#e57b0f"; // Brand theme background color
       default:
-        return '#ffffff'; // Light theme background color
+        return "#ffffff"; // Light theme background color
     }
   }};
 `;
@@ -46,12 +47,12 @@ export const SidebarHeader = styled.div`
 export const ProductName = styled.p`
   color: ${(props) => {
     switch (props.theme) {
-      case 'dark':
-        return 'white'; // Dark theme product name color
-      case 'brand':
-        return 'white'; // Brand theme product name color
+      case "dark":
+        return "white"; // Dark theme product name color
+      case "brand":
+        return "white"; // Brand theme product name color
       default:
-        return '#212121'; // Light theme product name color
+        return "#212121"; // Light theme product name color
     }
   }};
   font-size: 15px;
@@ -63,12 +64,12 @@ export const SidebarIcon = styled(PiIcons.PiCloudFill)`
   padding-right: 10px;
   color: ${(props) => {
     switch (props.theme) {
-      case 'dark':
-        return '#3568cd'; // Dark theme sidebar icon color
-      case 'brand':
-        return '#fad30e'; // Brand theme sidebar icon color
+      case "dark":
+        return "#3568cd"; // Dark theme sidebar icon color
+      case "brand":
+        return "#fad30e"; // Brand theme sidebar icon color
       default:
-        return '#2764d5'; // Light theme sidebar icon color
+        return "#2764d5"; // Light theme sidebar icon color
     }
   }};
 `;
@@ -83,12 +84,12 @@ export const SubHeader = styled.div`
   text-align: left;
   color: ${(props) => {
     switch (props.theme) {
-      case 'dark':
-        return '#53545d'; // Dark theme sub header color
-      case 'brand':
-        return '#ffc487'; // Brand theme sub header color
+      case "dark":
+        return "#53545d"; // Dark theme sub header color
+      case "brand":
+        return "#ffc487"; // Brand theme sub header color
       default:
-        return '#818188'; // Light theme sub header color
+        return "#818188"; // Light theme sub header color
     }
   }};
 `;
@@ -108,12 +109,12 @@ export const SidebarListContainer = styled.div`
 export const SidebarListItem = styled.div`
   color: ${(props) => {
     switch (props.theme) {
-      case 'dark':
-        return '#6f6f71'; // Dark theme sidebar list item color
-      case 'brand':
-        return '#fee2bb'; // Brand theme sidebar list item color
+      case "dark":
+        return "#6f6f71"; // Dark theme sidebar list item color
+      case "brand":
+        return "#fee2bb"; // Brand theme sidebar list item color
       default:
-        return '#a0a1a4'; // Light theme sidebar list item color
+        return "#a0a1a4"; // Light theme sidebar list item color
     }
   }};
   border-radius: 7px;
@@ -123,28 +124,30 @@ export const SidebarListItem = styled.div`
   align-items: center;
   cursor: pointer;
   gap: 15px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
   white-space: nowrap;
 
   &:hover {
     background-color: ${(props) => {
       switch (props.theme) {
-        case 'dark':
-          return '#2b2d38'; // Dark theme sidebar list item hover background color
-        case 'brand':
-          return '#ffffff'; // Brand theme sidebar list item hover background color
+        case "dark":
+          return "#2b2d38"; // Dark theme sidebar list item hover background color
+        case "brand":
+          return "#ffffff"; // Brand theme sidebar list item hover background color
         default:
-          return '#2764d5'; // Light theme sidebar list item hover background color
+          return "#2764d5"; // Light theme sidebar list item hover background color
       }
     }};
     color: ${(props) => {
       switch (props.theme) {
-        case 'dark':
-          return '#4b79d3'; // Dark theme sidebar list item hover text color
-        case 'brand':
-          return '#fa980e'; // Brand theme sidebar list item hover text color
+        case "dark":
+          return "#4b79d3"; // Dark theme sidebar list item hover text color
+        case "brand":
+          return "#fa980e"; // Brand theme sidebar list item hover text color
         default:
-          return '#ffffff'; // Light theme sidebar list item hover text color
+          return "#ffffff"; // Light theme sidebar list item hover text color
       }
     }};
   }
@@ -152,23 +155,104 @@ export const SidebarListItem = styled.div`
   &.active-l {
     color: ${(props) => {
       switch (props.theme) {
-        case 'dark':
-          return '#3568cd'; // Dark theme sidebar list item active text color
-        case 'brand':
-          return '#fa980e'; // Brand theme sidebar list item active text color
+        case "dark":
+          return "#3568cd"; // Dark theme sidebar list item active text color
+        case "brand":
+          return "#fa980e"; // Brand theme sidebar list item active text color
         default:
-          return '#ffffff'; // Light theme sidebar list item active text color
+          return "#ffffff"; // Light theme sidebar list item active text color
       }
     }};
     background-color: ${(props) => {
       switch (props.theme) {
-        case 'dark':
-          return '#2b2d38'; // Dark theme sidebar list item active background color
-        case 'brand':
-          return '#ffffff'; // Brand theme sidebar list item active background color
+        case "dark":
+          return "#2b2d38"; // Dark theme sidebar list item active background color
+        case "brand":
+          return "#ffffff"; // Brand theme sidebar list item active background color
         default:
-          return '#2764d5'; // Light theme sidebar list item active background color
+          return "#2764d5"; // Light theme sidebar list item active background color
       }
     }};
+  }
+`;
+
+/* Template Selector Container */
+export const TemplateSelectorContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 1rem 0;
+  border-top: 1px solid
+    ${(props) => {
+      switch (props.theme) {
+        case "dark":
+          return "#4a4a4b";
+        case "brand":
+          return "#fb8d21";
+        default:
+          return "#e2e2e2";
+      }
+    }};
+  margin-top: auto;
+`;
+
+/* Template Label */
+export const TemplateLabel = styled.label`
+  font-size: 12px;
+  font-weight: 500;
+  color: ${(props) => {
+    switch (props.theme) {
+      case "dark":
+        return "#53545d";
+      case "brand":
+        return "#ffc487";
+      default:
+        return "#818188";
+    }
+  }};
+  margin-left: 10px;
+`;
+
+/* Template Select */
+export const TemplateSelect = styled.select`
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  border: 1px solid
+    ${(props) => {
+      switch (props.theme) {
+        case "dark":
+          return "#4a4a4b";
+        case "brand":
+          return "#fb8d21";
+        default:
+          return "#e2e2e2";
+      }
+    }};
+  background-color: ${(props) => {
+    switch (props.theme) {
+      case "dark":
+        return "#2b2d38";
+      case "brand":
+        return "#ffffff";
+      default:
+        return "#f5f5f5";
+    }
+  }};
+  color: ${(props) => {
+    switch (props.theme) {
+      case "dark":
+        return "#ffffff";
+      case "brand":
+        return "#e57b0f";
+      default:
+        return "#212121";
+    }
+  }};
+
+  &:focus {
+    outline: none;
+    border-color: #2764d5;
   }
 `;

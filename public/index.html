@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -9,6 +9,27 @@
       content="Web site created using create-react-app"
     />
     <title>Joyfill Demo</title>
+    <style>
+      /* Global styles for JoyDoc images to fit within containers */
+      [class*="image"] img,
+      [class*="Image"] img,
+      [data-field-type="image"] img {
+        object-fit: contain !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        width: auto !important;
+        height: auto !important;
+      }
+
+      /* Line spacing for exporter address textarea */
+      [id="65f89dab707f4659709fb8d5"],
+      [id="65f89dab707f4659709fb8d5"] *,
+      [data-field-id="65f89dab707f4659709fb8d5"],
+      [data-field-id="65f89dab707f4659709fb8d5"] * {
+        line-height: 2.5 !important;
+        white-space: pre-line !important;
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
