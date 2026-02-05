@@ -26,14 +26,44 @@ const Builder = () => {
   const [selectedTemplate, setSelectedTemplate] = useState(
     "packingInstructions",
   );
-  const [joyDoc, setJoyDoc] = useState(data["packingInstructions"]);
+  const [joyDoc, setJoyDoc] = useState(() => {
+    // Load from localStorage if available, otherwise use default data
+    try {
+      const savedTemplates = JSON.parse(
+        localStorage.getItem("savedTemplates") || "{}",
+      );
+      if (savedTemplates["packingInstructions"]) {
+        return savedTemplates["packingInstructions"];
+      }
+    } catch (error) {
+      console.error("Error loading saved template:", error);
+    }
+    return data["packingInstructions"];
+  });
   const [isSaving, setIsSaving] = useState(false);
 
   const handleTemplateChange = (e) => {
     const templateKey = e.target.value;
     setSelectedTemplate(templateKey);
-    const templateData = data[templateKey];
-    console.log("Loading template:", templateKey, templateData);
+
+    // Try to load from localStorage first, then fall back to default data
+    let templateData;
+    try {
+      const savedTemplates = JSON.parse(
+        localStorage.getItem("savedTemplates") || "{}",
+      );
+      if (savedTemplates[templateKey]) {
+        templateData = savedTemplates[templateKey];
+        console.log("Loading template from localStorage:", templateKey);
+      }
+    } catch (error) {
+      console.error("Error loading from localStorage:", error);
+    }
+
+    if (!templateData) {
+      templateData = data[templateKey];
+      console.log("Loading template from default data:", templateKey);
+    }
     // Debug: Check all three date fields
     if (templateKey === "packingInstructions") {
       const fieldPositions =
@@ -107,29 +137,26 @@ const Builder = () => {
   };
 
   // Load saved templates from localStorage on mount
-  // React.useEffect(() => {
-  //   try {
-  //     const savedTemplates = JSON.parse(
-  //       localStorage.getItem("savedTemplates") || "{}",
-  //     );
-  //     Object.keys(savedTemplates).forEach((key) => {
-  //       if (data[key]) {
-  //         data[key] = savedTemplates[key];
-  //       }
-  //     });
-  //     // Reload current template if it was saved
-  //     if (savedTemplates[selectedTemplate]) {
-  //       console.log(
-  //         "test",
-  //         JSON.stringify(savedTemplates[selectedTemplate], null, 2),
-  //       );
-  //       setJoyDoc(savedTemplates[selectedTemplate]);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error loading saved templates:", error);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  React.useEffect(() => {
+    try {
+      const savedTemplates = JSON.parse(
+        localStorage.getItem("savedTemplates") || "{}",
+      );
+      // Update in-memory data object with saved templates
+      Object.keys(savedTemplates).forEach((key) => {
+        if (data[key]) {
+          data[key] = savedTemplates[key];
+        }
+      });
+      // Reload current template if it was saved
+      if (savedTemplates[selectedTemplate]) {
+        setJoyDoc(savedTemplates[selectedTemplate]);
+      }
+    } catch (error) {
+      console.error("Error loading saved templates:", error);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <BuilderContainer>

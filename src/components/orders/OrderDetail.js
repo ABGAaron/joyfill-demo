@@ -59,7 +59,31 @@ const OrderDetail = () => {
   useEffect(() => {
     const staticOrder = staticOrders[orderNumber];
     if (staticOrder) {
-      const template = data[staticOrder.templateKey];
+      // Try to load template from localStorage first, then fall back to default data
+      let template;
+      try {
+        const savedTemplates = JSON.parse(
+          localStorage.getItem("savedTemplates") || "{}",
+        );
+        if (savedTemplates[staticOrder.templateKey]) {
+          template = savedTemplates[staticOrder.templateKey];
+          console.log(
+            "Loading template from localStorage:",
+            staticOrder.templateKey,
+          );
+        }
+      } catch (error) {
+        console.error("Error loading from localStorage:", error);
+      }
+
+      if (!template) {
+        template = data[staticOrder.templateKey];
+        console.log(
+          "Loading template from default data:",
+          staticOrder.templateKey,
+        );
+      }
+
       const values = initialData[staticOrder.templateKey];
       const document = injectValuesIntoTemplate(template, values);
       setOrder({ ...staticOrder, document });
