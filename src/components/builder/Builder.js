@@ -3,6 +3,7 @@ import { JoyDoc } from "@joyfill/components";
 import { ThemeContext } from "../../App";
 import { data } from "../../data";
 import { themes } from "../../themes";
+import { defaultFieldOptions, fieldOptions } from "../../field-options";
 import {
   BuilderContainer,
   BuilderHeader,
@@ -12,6 +13,7 @@ import {
   SaveButton,
   JoyDocWrapper,
 } from "./styles/StyledBuilder";
+import { identifierFieldSettings } from "../../utils/field-settings";
 
 const templateOptions = [
   { key: "packingInstructions", name: "Packing Instructions" },
@@ -64,21 +66,7 @@ const Builder = () => {
       templateData = data[templateKey];
       console.log("Loading template from default data:", templateKey);
     }
-    // Debug: Check all three date fields
-    if (templateKey === "packingInstructions") {
-      const fieldPositions =
-        templateData?.files?.[0]?.pages?.[0]?.fieldPositions;
-      const dateFields = fieldPositions?.filter(
-        (fp) =>
-          fp.field === "65f89dab707f4659709fb8d0" ||
-          fp.field === "65f89dab707f4659709fb8d1" ||
-          fp.field === "65f89dab707f4659709fb8d2",
-      );
-      console.log(
-        "All three date fieldPositions:",
-        JSON.stringify(dateFields, null, 2),
-      );
-    }
+
     if (templateData) {
       setJoyDoc(templateData);
     } else {
@@ -158,6 +146,12 @@ const Builder = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const fieldSettings = {
+    field: {
+      identifier: identifierFieldSettings,
+    },
+  };
+
   return (
     <BuilderContainer>
       <BuilderHeader>
@@ -188,6 +182,8 @@ const Builder = () => {
           doc={joyDoc}
           onChange={handleDocChange}
           onUploadAsync={handleUploadAsync}
+          fieldSettings={fieldSettings}
+          fieldOptions={fieldOptions}
         />
       </JoyDocWrapper>
     </BuilderContainer>

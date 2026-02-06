@@ -10,8 +10,6 @@ export const initialData = {
     export_declaration_number: "",
     exporter_reference: "1328-HELEN",
     buyer_reference: "",
-    bags_per_container: 20,
-    marks_numbers: "GEM OF THE WEST\nVITAL WHEAT GLUTEN\nPRODUCT OF AUSTRALIA",
     buyer_name: "MANILDRA MILLING CORPORATION",
     buyer_phone: "0011 1 913 362 0777",
     buyer_address:
@@ -19,21 +17,32 @@ export const initialData = {
     exporter_name: "SHOALHAVEN STARCHES PTY LTD",
     exporter_abn: "94 000 045 045",
     exporter_address: "36 Bolong Road\nBomaderry NSW 2541\nAustralia",
-    desiccants_per_container: null,
     vessel: "CMA CGM SEATTLE",
     voyage: "347N",
-    product_code: "100395_10004418",
-    product_name: "Export Gluten - U.S.A.",
-    bag_type: "Bag",
-    bag_size: 900,
-    number_of_bags: 20,
     final_destination: "Los Angeles, United States of America",
     port_loading: "Sydney, Australia",
     departure_date: "2023-12-05",
     port_discharge: "Los Angeles, United States of America",
-    container_details: "1 x 20' Food Quality Container FCL",
     scheduled_pack_date: "2023-11-27",
     car_expiry_date: "",
     authorised_by: "Helen Srdic",
+    container_details: [
+      {
+        marks_numbers:
+          "GEM OF THE WEST\nVITAL WHEAT GLUTEN\nPRODUCT OF AUSTRALIA",
+        container_details: "1 x 20' Food Quality Container FCL",
+        bags_per_container: 20,
+        desiccants_per_container: null,
+      },
+    ],
+    product_list: [
+      {
+        product_code: "100395_10004418",
+        product_name: "Export Gluten - U.S.A.",
+        bag_type: "Bag",
+        bag_size: 900,
+        number_of_bags: 20,
+      },
+    ],
   },
 };

@@ -5,6 +5,7 @@ import { ThemeContext } from "../../App";
 import { themes } from "../../themes";
 import { data } from "../../data";
 import { initialData } from "../../initial-data";
+import { fieldOptions } from "../../field-options";
 import html2pdf from "html2pdf.js";
 import {
   OrderDetailContainer,
@@ -28,7 +29,58 @@ const staticOrders = {
 };
 
 /**
+ * Generate a unique ObjectId-like string
+ */
+const generateObjectId = () => {
+  const timestamp = Math.floor(Date.now() / 1000).toString(16);
+  const randomPart = Array.from({ length: 16 }, () =>
+    Math.floor(Math.random() * 16).toString(16),
+  ).join("");
+  return timestamp + randomPart;
+};
+
+/**
+ * Convert array data to JoyDoc table value format
+ * @param {Array} dataArray - Array of objects with data
+ * @param {Array} tableColumns - JoyDoc tableColumns array with _id and mapping info
+ * @param {Object} columnMapping - Maps data keys to column _ids
+ * @returns {Array} JoyDoc table value array with rows and cells
+ */
+const convertToTableValue = (dataArray, tableColumns, columnMapping) => {
+  if (!dataArray || !Array.isArray(dataArray)) return [];
+
+  return dataArray.map((item) => {
+    const cells = {};
+
+    // Map each data field to its corresponding column
+    Object.entries(columnMapping).forEach(([dataKey, columnId]) => {
+      if (item[dataKey] !== undefined) {
+        cells[columnId] = item[dataKey];
+      }
+    });
+
+    return {
+      _id: generateObjectId(),
+      deleted: false,
+      cells,
+    };
+  });
+};
+
+/**
+ * Get table column definition from fieldOptions by identifier
+ */
+const getTableColumnsFromFieldOptions = (identifier) => {
+  const tableField = fieldOptions.find(
+    (f) => f.identifier === identifier && f.type === "table",
+  );
+  return tableField?.tableColumns || null;
+};
+
+/**
  * Inject values into template fields based on identifier
+ * Supports both simple fields and table fields
+ * For tables, uses column definitions from fieldOptions if not in template
  */
 const injectValuesIntoTemplate = (template, values) => {
   if (!template || !values) return template;
@@ -37,8 +89,43 @@ const injectValuesIntoTemplate = (template, values) => {
 
   if (clonedTemplate.fields) {
     clonedTemplate.fields = clonedTemplate.fields.map((field) => {
+      // Handle simple fields
       if (field.identifier && values[field.identifier] !== undefined) {
-        return { ...field, value: values[field.identifier] };
+        const value = values[field.identifier];
+
+        // Handle table fields - value is an array of objects
+        if (field.type === "table" && Array.isArray(value)) {
+          // Get tableColumns from field or from fieldOptions
+          const tableColumns =
+            field.tableColumns ||
+            getTableColumnsFromFieldOptions(field.identifier);
+
+          if (tableColumns) {
+            // Build column mapping from tableColumns using identifier
+            const columnMapping = {};
+            tableColumns.forEach((col) => {
+              if (col.identifier) {
+                columnMapping[col.identifier] = col._id;
+              }
+            });
+
+            const tableValue = convertToTableValue(
+              value,
+              tableColumns,
+              columnMapping,
+            );
+            const rowOrder = tableValue.map((row) => row._id);
+
+            return {
+              ...field,
+              tableColumns,
+              value: tableValue,
+              rowOrder,
+            };
+          }
+        }
+
+        return { ...field, value };
       }
       return field;
     });
