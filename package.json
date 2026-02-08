@@ -6,6 +6,9 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
+    "@fortawesome/fontawesome-svg-core": "^7.1.0",
+    "@fortawesome/free-solid-svg-icons": "^7.1.0",
+    "@fortawesome/react-fontawesome": "^3.2.0",
     "@joyfill/components": "^3.7.0",
     "@mui/material": "^5.15.12",
     "@testing-library/jest-dom": "^5.17.0",
