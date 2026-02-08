@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { JoyDoc } from "@joyfill/components";
 import { ThemeContext } from "../../App";
 import { data } from "../../data";
@@ -13,7 +13,43 @@ import {
   SaveButton,
   JoyDocWrapper,
 } from "./styles/StyledBuilder";
-import { identifierFieldSettings } from "../../utils/field-settings";
+
+// Component to hide the Identifier accordion using MutationObserver
+const HideIdentifierScript = () => {
+  useEffect(() => {
+    const hideIdentifierAccordion = () => {
+      // Find all elements that might contain "Identifier" text
+      const allElements = document.querySelectorAll('[class*="Accordion"]');
+      allElements.forEach((el) => {
+        if (el.textContent && el.textContent.includes("Identifier")) {
+          // Find the parent accordion wrapper
+          const accordion =
+            el.closest('[class*="Accordion__StyledWrapper"]') || el;
+          if (accordion) {
+            accordion.style.display = "none";
+          }
+        }
+      });
+    };
+
+    // Run initially
+    hideIdentifierAccordion();
+
+    // Set up MutationObserver to catch dynamic content
+    const observer = new MutationObserver(() => {
+      hideIdentifierAccordion();
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return null;
+};
 
 const templateOptions = [
   { key: "packingInstructions", name: "Packing Instructions" },
@@ -146,12 +182,6 @@ const Builder = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const fieldSettings = {
-    field: {
-      identifier: identifierFieldSettings,
-    },
-  };
-
   return (
     <BuilderContainer>
       <BuilderHeader>
@@ -176,13 +206,13 @@ const Builder = () => {
       </BuilderHeader>
 
       <JoyDocWrapper>
+        <HideIdentifierScript />
         <JoyDoc
           mode={mode}
           theme={themes[theme]}
           doc={joyDoc}
           onChange={handleDocChange}
           onUploadAsync={handleUploadAsync}
-          fieldSettings={fieldSettings}
           fieldOptions={fieldOptions}
         />
       </JoyDocWrapper>
