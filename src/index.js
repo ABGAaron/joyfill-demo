@@ -11,10 +11,22 @@ import {
   faAlignJustify,
   faTable,
   faLayerGroup,
+  faHeading,
+  faParagraph,
+  faSquare,
 } from "@fortawesome/free-solid-svg-icons";
 
 // Add icons to library
-library.add(faCalendar, faFont, faAlignJustify, faTable, faLayerGroup);
+library.add(
+  faCalendar,
+  faFont,
+  faAlignJustify,
+  faTable,
+  faLayerGroup,
+  faHeading,
+  faParagraph,
+  faSquare,
+);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
